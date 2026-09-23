@@ -17,7 +17,6 @@ function publicUser(u) {
   return { id: u._id.toString(), name: u.name, email: u.email, createdAt: u.createdAt };
 }
 
-// GET /api/users
 export async function getAllUsers(req, res, next) {
   try {
     const users = await User.find().sort({ createdAt: -1 }).lean();
@@ -25,7 +24,6 @@ export async function getAllUsers(req, res, next) {
   } catch (err) { next(err); }
 }
 
-// GET /api/users/:id
 export async function getUser(req, res, next) {
   try {
     const user = await User.findById(req.params.id);
@@ -34,7 +32,6 @@ export async function getUser(req, res, next) {
   } catch (err) { next(err); }
 }
 
-// POST /api/users
 export async function createUser(req, res, next) {
   try {
     const { value, error } = createSchema.validate(req.body);
@@ -49,7 +46,6 @@ export async function createUser(req, res, next) {
   } catch (err) { next(err); }
 }
 
-// PATCH /api/users/:id
 export async function updateUser(req, res, next) {
   try {
     const { value, error } = updateSchema.validate(req.body, { abortEarly: false, stripUnknown: true });
@@ -61,7 +57,6 @@ export async function updateUser(req, res, next) {
   } catch (err) { next(err); }
 }
 
-// DELETE /api/users/:id
 export async function deleteUser(req, res, next) {
   try {
     const doc = await User.findByIdAndDelete(req.params.id);
